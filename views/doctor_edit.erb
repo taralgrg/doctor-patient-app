@@ -1,0 +1,32 @@
+<h1>Update/Delete  Dr <%=@doctor.name() %>'s details</h1>
+
+  <form action="/doctors/<%= @doctor.id() %>" method="post">
+    <input name="_method" type="hidden" value="patch">
+
+    <label for="name">Rename the Doctor's name:</label>
+    <input id="name" name="name" type="text">
+
+    <label for="speciality">Change the Doctor's speciality:</label>
+    <input id="speciality" name="speciality" type="text">
+
+    <button type="submit">Update</button>
+  </form>
+
+  <form action="/doctors/<%= @doctor.id() %>" method="post">
+     <input name="_method" type="hidden" value="delete">
+
+     <button type="submit">Delete Doctor</button>
+   </form>
+
+   <% if @doctor.patients().any?() %>
+   <h3>Here are all the patients in this Doctor's list:</h3>
+
+   <ul>
+     <% @doctor.patients().each() do |patient| %>
+     <li><%= patient.name %> <%= patient.birthdate %> </li>
+     <% end %>
+   </ul>
+
+   <% else %>
+   <p>There are no patients in this Doctor's list!</p>
+   <% end %>
